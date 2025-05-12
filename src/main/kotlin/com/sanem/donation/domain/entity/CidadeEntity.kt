@@ -2,6 +2,8 @@ package com.sanem.donation.domain.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 
@@ -10,6 +12,7 @@ import jakarta.persistence.Table
 class CidadeEntity(
     @Id
     @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
     @Column(name = "NOME", nullable = false)
     var nome: String
