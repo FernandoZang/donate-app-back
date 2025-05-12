@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: donation-app
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: none
+
+  datasource:
+    main:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/SANEM?allowPublicKeyRetrieval=true&useSSL=false
+      username: ${banco.username}
+      password: ${banco.password}
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      hikari:
+        auto-commit: false
+        maximum-pool-size: 5 #// TODO: AJUSTAR O POOL SIZE AND CONNECTION PER USER

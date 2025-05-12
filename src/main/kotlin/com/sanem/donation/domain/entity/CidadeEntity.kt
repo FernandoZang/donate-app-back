@@ -10,7 +10,7 @@ import jakarta.persistence.Table
 class CidadeEntity(
     @Id
     @Column(name = "ID", nullable = false)
-    var id: Int,
+    var id: Long,
     @Column(name = "NOME", nullable = false)
     var nome: String
 )
