@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class DonationApplication
 
 fun main(args: Array<String>) {
-	runApplication<DonationApplication>(*args)
+    runApplication<DonationApplication>(*args)
 }

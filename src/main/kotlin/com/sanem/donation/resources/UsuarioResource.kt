@@ -1,6 +1,5 @@
 package com.sanem.donation.resources
 
-import com.sanem.donation.domain.entity.CidadeEntity
 import com.sanem.donation.domain.entity.UsuarioEntity
 import com.sanem.donation.domain.repository.UsuarioRepository
 import org.springframework.http.ResponseEntity
@@ -15,17 +14,15 @@ class UsuarioResource(
     var usuarioRepository: UsuarioRepository
 ) {
 
-
     @GetMapping()
-    fun findAll(
-    ): ResponseEntity<List<UsuarioEntity?>?> {
-        return ResponseEntity.ok(usuarioRepository.findAll());
+    fun findAll(): ResponseEntity<List<UsuarioEntity?>?> {
+        return ResponseEntity.ok(usuarioRepository.findAll())
     }
 
     @PostMapping()
     fun insert(
         usuarioEntity: UsuarioEntity
     ): ResponseEntity<UsuarioEntity?> {
-        return ResponseEntity.ok(usuarioRepository.save(usuarioEntity));
+        return ResponseEntity.ok(usuarioRepository.save(usuarioEntity))
     }
 }

@@ -15,15 +15,14 @@ class CidadeResource(
 ) {
 
     @GetMapping()
-    fun findAll(
-    ): ResponseEntity<List<CidadeEntity?>?> {
-        return ResponseEntity.ok(cidadeRepository.findAll());
+    fun findAll(): ResponseEntity<List<CidadeEntity?>?> {
+        return ResponseEntity.ok(cidadeRepository.findAll())
     }
 
     @PostMapping()
     fun insert(
         cidadeEntity: CidadeEntity
     ): ResponseEntity<CidadeEntity?> {
-        return ResponseEntity.ok(cidadeRepository.save(cidadeEntity));
+        return ResponseEntity.ok(cidadeRepository.save(cidadeEntity))
     }
 }
