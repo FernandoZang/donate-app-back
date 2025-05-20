@@ -16,7 +16,7 @@ import jakarta.persistence.Table
 @Table(name = "USUARIO")
 class UsuarioEntity(
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long,
     var nome: String,

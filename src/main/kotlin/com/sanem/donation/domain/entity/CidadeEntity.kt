@@ -11,9 +11,9 @@ import jakarta.persistence.Table
 @Table(name = "CIDADE")
 class CidadeEntity(
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long,
+    var id: Long? = null,
     @Column(name = "NOME", nullable = false)
     var nome: String
 )
