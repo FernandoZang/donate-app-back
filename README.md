@@ -8,7 +8,7 @@
 ![donation-app-MER.jpeg](src/main/resources/static/donation-app-MER.jpeg)
 
 ## Tecnologias usadas
-    -Java 17
+    -kotlin (Java 17)
     -Spring Boot 3.x
     -Mysql
     -Docker
