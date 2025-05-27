@@ -6,3 +6,10 @@
 [donation-app-MER.drawio](src/main/resources/static/donation-app-MER.drawio)
 
 ![donation-app-MER.jpeg](src/main/resources/static/donation-app-MER.jpeg)
+
+
+### Desenvolvedores
+    - Fernando (backend)
+    - Julia (frontend)
+    - Jiliana (frontend)
+    - Diego (AM e frontend)
