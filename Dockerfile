@@ -2,9 +2,6 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /donation
 
-ENV banco.password="donation123*"
-ENV banco.username="donation-app"
-
 RUN adduser appuser
 RUN chmod +x -R /donation
 RUN chown -R appuser /donation

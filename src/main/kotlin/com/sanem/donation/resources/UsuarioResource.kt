@@ -4,6 +4,7 @@ import com.sanem.donation.domain.entity.UsuarioEntity
 import com.sanem.donation.domain.repository.UsuarioRepository
 import com.sanem.donation.services.UsuarioService
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -17,6 +18,7 @@ class UsuarioResource(
     var usuarioRepository: UsuarioRepository
 ) {
 
+    @PreAuthorize("hasRole('ATENDENTE')")
     @GetMapping()
     fun findAll(): ResponseEntity<List<UsuarioEntity?>?> {
         return ResponseEntity.ok(usuarioRepository.findAll())

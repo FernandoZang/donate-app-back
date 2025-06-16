@@ -1,20 +1,25 @@
-USE SANEM;
+-- Em PostgreSQL, você seleciona o banco de dados desejado ao se conectar.
+-- Caso precise criar o banco de dados SANEM:
+--   CREATE DATABASE sanem;
+-- Então, conecte-se a ele com: \c sanem
 
+-- Tabela CIDADE
 CREATE TABLE CIDADE (
-    ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    NOME VARCHAR(100) NOT NULL
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
 );
 
+-- Tabela USUARIO
 CREATE TABLE USUARIO (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
     login VARCHAR(150) NOT NULL,
     senha VARCHAR(150) NOT NULL,
-    CPF VARCHAR(20) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
     email VARCHAR(50),
     fone VARCHAR(50),
     tipo VARCHAR(50) NOT NULL,
-    UF VARCHAR(2) NOT NULL,
+    uf VARCHAR(2) NOT NULL,
     bairro VARCHAR(255) NOT NULL,
     logradouro VARCHAR(255) NOT NULL,
     logradouro_tipo VARCHAR(255) NOT NULL,
@@ -26,15 +31,15 @@ CREATE TABLE USUARIO (
     FOREIGN KEY (cod_cidade) REFERENCES CIDADE(id)
 );
 
-
+-- Tabela BENEFICIARIO
 CREATE TABLE BENEFICIARIO (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL,
-    CPF VARCHAR(20),
+    cpf VARCHAR(20),
     email VARCHAR(50),
     fone VARCHAR(50),
     tipo VARCHAR(50) NOT NULL,
-    UF VARCHAR(2) NOT NULL,
+    uf VARCHAR(2) NOT NULL,
     bairro VARCHAR(255),
     logradouro VARCHAR(255),
     logradouro_tipo VARCHAR(255),
@@ -47,56 +52,63 @@ CREATE TABLE BENEFICIARIO (
     FOREIGN KEY (cod_cidade) REFERENCES CIDADE(id)
 );
 
+-- Tabela REGRA_ACESSO
 CREATE TABLE REGRA_ACESSO (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL
 );
 
+-- Tabela USUARIO_REGRA_ACESSO (tabela de relacionamento muitos para muitos)
 CREATE TABLE USUARIO_REGRA_ACESSO (
-    USUARIO_ID INT NOT NULL,
-    REGRA_ID INT NOT NULL,
-    PRIMARY KEY (USUARIO_ID, REGRA_ID),
-    FOREIGN KEY (USUARIO_ID) REFERENCES USUARIO(id),
-    FOREIGN KEY (REGRA_ID) REFERENCES REGRA_ACESSO(id)
+    usuario_id INT NOT NULL,
+    regra_id INT NOT NULL,
+    PRIMARY KEY (usuario_id, regra_id),
+    FOREIGN KEY (usuario_id) REFERENCES USUARIO(id),
+    FOREIGN KEY (regra_id) REFERENCES REGRA_ACESSO(id)
 );
 
+-- Tabela PRODUTO
 CREATE TABLE PRODUTO (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id SERIAL PRIMARY KEY,
     descricao VARCHAR(100) NOT NULL,
     quantidade INT NOT NULL,
     tipo VARCHAR(100) NOT NULL,
     tamanho VARCHAR(100) NOT NULL
 );
 
+-- Tabela DISTRIBUICAO
 CREATE TABLE DISTRIBUICAO (
-    COD_USUARIO INT NOT NULL,
-    COD_PRODUTO INT NOT NULL,
+    cod_usuario INT NOT NULL,
+    cod_produto INT NOT NULL,
     descricao VARCHAR(100) NOT NULL,
     quantidade INT NOT NULL,
-    data DATETIME NOT NULL,
-    PRIMARY KEY (COD_USUARIO, COD_PRODUTO),
-    FOREIGN KEY (COD_USUARIO) REFERENCES USUARIO(id),
-    FOREIGN KEY (COD_PRODUTO) REFERENCES PRODUTO(id)
+    data TIMESTAMP NOT NULL,
+    PRIMARY KEY (cod_usuario, cod_produto),
+    FOREIGN KEY (cod_usuario) REFERENCES USUARIO(id),
+    FOREIGN KEY (cod_produto) REFERENCES PRODUTO(id)
 );
 
+-- Tabela HISTORICO
 CREATE TABLE HISTORICO (
-    COD_PRODUTO INT NOT NULL,
-    COD_USUARIO INT NOT NULL,
+    cod_produto INT NOT NULL,
+    cod_usuario INT NOT NULL,
     quantidade INT NOT NULL,
     tipo_movimento VARCHAR(2) NOT NULL,
-    PRIMARY KEY (COD_PRODUTO, COD_USUARIO),
-    FOREIGN KEY (COD_PRODUTO) REFERENCES PRODUTO(id),
-    FOREIGN KEY (COD_USUARIO) REFERENCES USUARIO(id)
+    PRIMARY KEY (cod_produto, cod_usuario),
+    FOREIGN KEY (cod_produto) REFERENCES PRODUTO(id),
+    FOREIGN KEY (cod_usuario) REFERENCES USUARIO(id)
 );
 
-INSERT INTO SANEM.CIDADE (NOME) VALUES('CASCAVEL');
+-- Inserts
 
-INSERT INTO SANEM.REGRA_ACESSO (nome) VALUES('SYS');
-INSERT INTO SANEM.REGRA_ACESSO (nome) VALUES('ADMIN');
-INSERT INTO SANEM.REGRA_ACESSO (nome) VALUES('GERENTE');
-INSERT INTO SANEM.REGRA_ACESSO (nome) VALUES('ATENDENTE');
+INSERT INTO CIDADE (nome) VALUES ('CASCAVEL');
 
-INSERT INTO SANEM.USUARIO (nome,login,senha,CPF,email,fone,tipo,UF,bairro,logradouro,logradouro_tipo,numero,complemento,status,active,cod_cidade) VALUES
-	 ('SYSTEM','SYS','$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S','NOT','system@hotmail.com','NOT','SYSTEM','BR','NOT','NOT','NOT','NOT','NOT','ATIVO','TRUE',1);
+INSERT INTO REGRA_ACESSO (nome) VALUES ('SYS');
+INSERT INTO REGRA_ACESSO (nome) VALUES ('ADMIN');
+INSERT INTO REGRA_ACESSO (nome) VALUES ('GERENTE');
+INSERT INTO REGRA_ACESSO (nome) VALUES ('ATENDENTE');
 
-INSERT INTO SANEM.USUARIO_REGRA_ACESSO (USUARIO_ID,REGRA_ID) VALUES(1,1);
+INSERT INTO USUARIO (nome, login, senha, cpf, email, fone, tipo, uf, bairro, logradouro, logradouro_tipo, numero, complemento, status, active, cod_cidade)
+VALUES ('SYSTEM', 'SYS', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', 'NOT', 'system@hotmail.com', 'NOT', 'SYSTEM', 'BR', 'NOT', 'NOT', 'NOT', 'NOT', 'NOT', 'ATIVO', 'TRUE', 1);
+
+INSERT INTO USUARIO_REGRA_ACESSO (usuario_id, regra_id) VALUES (1, 1);

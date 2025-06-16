@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    main:
+      url: jdbc:mysql://localhost:3306/SANEM?allowPublicKeyRetrieval=true&useSSL=false
+      username: ${banco.username}
+      password: ${banco.password}
+      dialect: org.hibernate.dialect.MySQL8Dialect
+      hikari:
+        auto-commit: false
+        maximum-pool-size: 5 #// TODO: AJUSTAR O POOL SIZE AND CONNECTION PER USER
+
+api:
+  security:
+    token:
+      secret: ${security.token}
