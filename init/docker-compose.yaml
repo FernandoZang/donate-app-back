@@ -3,6 +3,7 @@ version: '3.8'
 services:
   mysql:
     image: mysql:8.0
+    network_mode: bridge
     container_name: mysql-db
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword123
@@ -16,5 +17,27 @@ services:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
 
+
+  donation-app:
+    image: donation
+    container_name: donation-app
+    network_mode: bridge
+    environment:
+      banco.password: "donation123*"
+      banco.username: "donation-app"
+      DISABLE_SSL: TRUE
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    depends_on:
+      - mysql
+
 volumes:
   mysql_data:
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16

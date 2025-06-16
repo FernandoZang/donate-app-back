@@ -19,3 +19,8 @@ spring:
       hikari:
         auto-commit: false
         maximum-pool-size: 5 #// TODO: AJUSTAR O POOL SIZE AND CONNECTION PER USER
+
+api:
+  security:
+    token:
+      secret: ${security.token}
