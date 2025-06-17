@@ -16,7 +16,11 @@ class UsuarioService(
     fun save(usuarioEntity: UsuarioEntity): UsuarioEntity? {
         usuarioEntity.senha = BCryptPasswordEncoder().encode(usuarioEntity.senha)
         val rules = usuarioEntity.regrasAcesso
-        if (rules.contains(RegraAcesso(nome = "MASTER")) || rules.contains(RegraAcesso(nome = "SYS")) ) {
+        if (
+            rules.contains(RegraAcesso(nome = "MASTER")) ||
+            rules.contains(RegraAcesso(nome = "SYS")) ||
+            rules.contains(RegraAcesso(nome = "ADMIN")))
+        {
             throw ForbiddenException(
                 message = "Sem premissão para cadastrar esse tipo de usuário"
             )
