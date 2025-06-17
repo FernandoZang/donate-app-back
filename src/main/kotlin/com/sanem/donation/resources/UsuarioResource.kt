@@ -1,6 +1,8 @@
 package com.sanem.donation.resources
 
-import com.sanem.donation.domain.entity.UsuarioEntity
+import com.sanem.donation.domain.dto.UsuarioDTO
+import com.sanem.donation.domain.dto.toEntity
+import com.sanem.donation.domain.entity.toDTO
 import com.sanem.donation.domain.repository.UsuarioRepository
 import com.sanem.donation.exceptions.ForbiddenException
 import com.sanem.donation.services.UsuarioService
@@ -21,17 +23,17 @@ class UsuarioResource(
 
     @PreAuthorize("hasRole('ATENDENTE')")
     @GetMapping()
-    fun findAll(): ResponseEntity<List<UsuarioEntity?>?> {
-        return ResponseEntity.ok(usuarioRepository.findAll())
+    fun findAll(): Any {
+        return ResponseEntity.ok(usuarioRepository.findAll().stream().map { it -> it.toDTO() })
     }
 
     @PreAuthorize("hasRole('GERENTE')")
     @PostMapping()
     fun insert(
-        @RequestBody usuarioEntity: UsuarioEntity
+        @RequestBody usuarioDTO: UsuarioDTO
     ): ResponseEntity<Any?> {
         return try {
-            ResponseEntity.ok(usuarioService.save(usuarioEntity))
+            ResponseEntity.ok(usuarioService.save(usuarioDTO.toEntity())!!.toDTO())
         } catch (ex: ForbiddenException) {
             ResponseEntity.status(403).build()
         }

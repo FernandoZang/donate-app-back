@@ -1,5 +1,6 @@
 package com.sanem.donation.domain.entity
 
+import com.sanem.donation.domain.dto.UsuarioDTO
 import com.sanem.donation.domain.enum.StatusEnum
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -24,10 +25,10 @@ class UsuarioEntity(
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?,
+    var id: Long? = null,
     var nome: String,
     var login: String,
-    var senha: String,
+    var senha: String = "",
     var CPF: String,
     var email: String,
     var fone: String,
@@ -79,4 +80,25 @@ class UsuarioEntity(
     override fun isEnabled(): Boolean {
         return true
     }
+}
+
+fun UsuarioEntity.toDTO(): UsuarioDTO {
+    var usuario = UsuarioDTO(
+        nome = nome,
+        login = login,
+        CPF = CPF,
+        email = email,
+        fone = fone,
+        UF = UF,
+        bairro = bairro,
+        logradouro = logradouro,
+        logradouro_tipo = logradouro_tipo,
+        numero = numero,
+        complemento = complemento,
+        status = status,
+        active = active,
+        cidade = cidade,
+        regrasAcesso = regrasAcesso
+    )
+    return usuario
 }
