@@ -18,7 +18,6 @@ CREATE TABLE USUARIO (
     cpf VARCHAR(20) NOT NULL,
     email VARCHAR(50),
     fone VARCHAR(50),
-    tipo VARCHAR(50) NOT NULL,
     uf VARCHAR(2) NOT NULL,
     bairro VARCHAR(255) NOT NULL,
     logradouro VARCHAR(255) NOT NULL,

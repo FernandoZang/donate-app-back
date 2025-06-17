@@ -2,6 +2,7 @@ package com.sanem.donation.resources
 
 import com.sanem.donation.domain.entity.UsuarioEntity
 import com.sanem.donation.domain.repository.UsuarioRepository
+import com.sanem.donation.exceptions.ForbiddenException
 import com.sanem.donation.services.UsuarioService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
@@ -24,10 +25,15 @@ class UsuarioResource(
         return ResponseEntity.ok(usuarioRepository.findAll())
     }
 
+    @PreAuthorize("hasRole('GERENTE')")
     @PostMapping()
     fun insert(
         @RequestBody usuarioEntity: UsuarioEntity
-    ): ResponseEntity<UsuarioEntity?> {
-        return ResponseEntity.ok(usuarioService.save(usuarioEntity))
+    ): ResponseEntity<Any?> {
+        return try {
+            ResponseEntity.ok(usuarioService.save(usuarioEntity))
+        } catch (ex: ForbiddenException) {
+            ResponseEntity.status(403).build()
+        }
     }
 }

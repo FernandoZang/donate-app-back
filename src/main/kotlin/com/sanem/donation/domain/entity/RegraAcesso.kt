@@ -13,6 +13,19 @@ class RegraAcesso(
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?,
+    var id: Long? = null,
     var nome: String,
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is RegraAcesso) return false
+
+        if (nome != other.nome) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return nome.hashCode()
+    }
+}
