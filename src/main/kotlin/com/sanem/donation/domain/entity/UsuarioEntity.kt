@@ -27,6 +27,7 @@ class UsuarioEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     var nome: String,
+    @Column(unique = true)
     var login: String,
     var senha: String = "",
     var CPF: String,

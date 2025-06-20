@@ -27,6 +27,7 @@ CREATE TABLE USUARIO (
     status VARCHAR(50) NOT NULL,
     active VARCHAR(50) NOT NULL,
     cod_cidade INT NOT NULL,
+    constraint usuario_login_key unique (login),
     FOREIGN KEY (cod_cidade) REFERENCES CIDADE(id)
 );
 
@@ -55,6 +56,7 @@ CREATE TABLE BENEFICIARIO (
 CREATE TABLE REGRA_ACESSO (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(150) NOT NULL
+    constraint regra_acesso_nome_key unique (nome)
 );
 
 -- Tabela USUARIO_REGRA_ACESSO (tabela de relacionamento muitos para muitos)

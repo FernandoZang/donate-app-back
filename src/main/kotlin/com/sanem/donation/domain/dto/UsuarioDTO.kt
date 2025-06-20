@@ -45,7 +45,7 @@ data class UsuarioDTO(
 fun UsuarioDTO.toEntity(): UsuarioEntity {
     var usuario = UsuarioEntity(
         nome = nome,
-        login = login,
+        login = CPF,
         CPF = CPF,
         email = email,
         fone = fone,
