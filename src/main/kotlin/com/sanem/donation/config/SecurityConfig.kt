@@ -16,6 +16,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.servlet.config.annotation.CorsRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -51,6 +55,20 @@ class SecurityConfig {
             .role("GERENTE").implies("ATENDENTE")
             .build()
     }
+
+    @Bean
+    fun corsConfigurer(): WebMvcConfigurer {
+        return object : WebMvcConfigurer {
+            override fun addCorsMappings(registry: CorsRegistry) {
+                registry.addMapping("/**") // Apply to all paths
+                    .allowedOrigins("*") // Allow all origins
+                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow common HTTP methods
+                    .allowedHeaders("*") // Allow all headers
+                    .allowCredentials(true) // Allow sending credentials (e.g., cookies, authorization headers)
+            }
+        }
+    }
+};
 
     @Bean
     @Throws(Exception::class)
