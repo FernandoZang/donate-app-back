@@ -1,5 +1,6 @@
 package com.sanem.donation.config
 
+import org.apache.catalina.filters.CorsFilter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -16,8 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.web.servlet.config.annotation.CorsRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
@@ -30,8 +32,8 @@ class SecurityConfig {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .cors { corsConfigurer -> corsConfigurer.disable() }
             .csrf { it.disable() }
+            .cors { it.configurationSource(corsConfigurationSource()) }
             .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests { authorize ->
                 authorize.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
@@ -54,17 +56,20 @@ class SecurityConfig {
             .build()
     }
 
+
     @Bean
-    fun corsConfigurer(): WebMvcConfigurer {
-        return object : WebMvcConfigurer {
-            override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**") // Apply to all paths
-                    .allowedOrigins("*") // Allow all origins
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow common HTTP methods
-                    .allowedHeaders("*") // Allow all headers
-                    .allowCredentials(true) // Allow sending credentials (e.g., cookies, authorization headers)
-            }
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val config = CorsConfiguration().apply {
+            allowedOrigins = listOf("*")
+            allowedMethods = listOf("*")
+            allowedHeaders = listOf("*")
+            // allowedOriginPatterns = listOf("*") // use this instead of allowedOrigins for credentials + wildcard
+            allowCredentials = false // must be false if using "*"
         }
+
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", config)
+        return source
     }
 
     @Bean
