@@ -23,6 +23,10 @@ spring:
         auto-commit: false
         maximum-pool-size: 5 #// TODO: AJUSTAR O POOL SIZE AND CONNECTION PER USER
 
+schedule:
+  keep-app-running:
+    cron: 0 */11 * * * * #A cada 1 minuto
+
 api:
   security:
     token:
