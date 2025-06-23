@@ -1,5 +1,6 @@
 package com.sanem.donation.domain.entity
 
+import com.sanem.donation.domain.dto.CidadeDTO
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -15,5 +16,13 @@ class CidadeEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     @Column(name = "NOME", nullable = false)
-    var nome: String
+    var nome: String? = null
 )
+
+fun CidadeEntity.toDTO(): CidadeDTO {
+    var cidade = CidadeDTO(
+        id = id.toString(),
+        nome = nome,
+    )
+    return cidade
+}

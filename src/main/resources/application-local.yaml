@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    main:
+      url: jdbc:postgresql://localhost:5432/sanem
+      username: ${banco.username}
+      password: ${banco.password}
+      hikari:
+        auto-commit: false
+        maximum-pool-size: 5 #// TODO: AJUSTAR O POOL SIZE AND CONNECTION PER USER

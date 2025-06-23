@@ -55,8 +55,7 @@ CREATE TABLE BENEFICIARIO (
 -- Tabela REGRA_ACESSO
 CREATE TABLE REGRA_ACESSO (
     id SERIAL PRIMARY KEY,
-    nome VARCHAR(150) NOT NULL
-    constraint regra_acesso_nome_key unique (nome)
+    nome VARCHAR(150) NOT NULL unique
 );
 
 -- Tabela USUARIO_REGRA_ACESSO (tabela de relacionamento muitos para muitos)
@@ -104,12 +103,18 @@ CREATE TABLE HISTORICO (
 
 INSERT INTO CIDADE (nome) VALUES ('CASCAVEL');
 
-INSERT INTO REGRA_ACESSO (nome) VALUES ('SYS');
-INSERT INTO REGRA_ACESSO (nome) VALUES ('ADMIN');
-INSERT INTO REGRA_ACESSO (nome) VALUES ('GERENTE');
-INSERT INTO REGRA_ACESSO (nome) VALUES ('ATENDENTE');
+INSERT INTO "public"."regra_acesso" ("id", "nome")
+VALUES
+    ('1', 'SYS'),
+    ('2', 'ADMIN'),
+    ('3', 'GERENTE'),
+    ('4', 'ATENDENTE'),
+    ('5', 'MASTER');
 
-INSERT INTO USUARIO (nome, login, senha, cpf, email, fone, tipo, uf, bairro, logradouro, logradouro_tipo, numero, complemento, status, active, cod_cidade)
-VALUES ('SYSTEM', 'SYS', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', 'NOT', 'system@hotmail.com', 'NOT', 'SYSTEM', 'BR', 'NOT', 'NOT', 'NOT', 'NOT', 'NOT', 'ATIVO', 'TRUE', 1);
-
-INSERT INTO USUARIO_REGRA_ACESSO (usuario_id, regra_id) VALUES (1, 1);
+INSERT INTO "public"."usuario" ("id", "nome", "login", "senha", "cpf", "email", "fone", "uf", "bairro", "logradouro", "logradouro_tipo", "numero", "complemento", "status", "active", "cod_cidade")
+VALUES ('1', 'SYSTEM', '111.111.111-11', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '111.111.111-11', 'system@hotmail.com', 'NOT', 'BR', 'NOT', 'NOT', 'NOT', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
+('3', 'fernando', '713.196.410-75', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '713.196.410-75', 'fernando-zang@hotmail.com', '(45)998392481', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
+('4', 'teste1', '816.915.910-50', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '816.915.910-50', 'teste@hotmail.com', '(45)998392481', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
+('5', 'teste2', '447.634.330-91', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '447.634.330-91', 'teste@hotmail.com', '(45)998392481', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
+('12', 'teste6', '540.369.560-51', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '540.369.560-51', 'test@hotmail.com', '(45)998392411', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
+('13', 'teste7', '766.944.970-59', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '766.944.970-59', 'test@hotmail.com', '(45)998392411', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1');

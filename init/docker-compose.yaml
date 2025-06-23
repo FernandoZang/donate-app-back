@@ -17,20 +17,32 @@ services:
       - mysql_data:/var/lib/mysql
     restart: unless-stopped
 
-#
-#  donation-app:
-#    image: donation
-#    container_name: donation-app
-#    network_mode: bridge
-#    environment:
-#      banco.password: "donation123*"
-#      banco.username: "donation-app"
-#      DISABLE_SSL: TRUE
-#    ports:
-#      - "8080:8080"
-#    restart: unless-stopped
-#    depends_on:
-#      - mysql
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: donation-app123
+      POSTGRES_USER: sanem-donation-app
+      POSTGRES_DB: sanem
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8010:9010"
 
 volumes:
   mysql_data:
