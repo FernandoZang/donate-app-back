@@ -25,7 +25,7 @@ spring:
 
 schedule:
   keep-app-running:
-    cron: 0 */11 * * * * #A cada 1 minuto
+    cron: 0 */3 * * * * #A cada 3 minuto
 
 api:
   security:
