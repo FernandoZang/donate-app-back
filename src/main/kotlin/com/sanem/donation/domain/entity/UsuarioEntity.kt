@@ -87,6 +87,7 @@ fun UsuarioEntity.toDTO(): UsuarioDTO {
     var usuario = UsuarioDTO(
         nome = nome,
         login = login,
+        senha = null,
         CPF = CPF,
         email = email,
         fone = fone,

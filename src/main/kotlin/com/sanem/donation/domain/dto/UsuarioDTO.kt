@@ -14,6 +14,8 @@ data class UsuarioDTO(
     @field:JsonProperty
     var login: String,
     @field:JsonProperty
+    var senha: String? = null,
+    @field:JsonProperty
     var CPF: String,
     @field:JsonProperty
     var email: String,
@@ -46,6 +48,7 @@ fun UsuarioDTO.toEntity(): UsuarioEntity {
     var usuario = UsuarioEntity(
         nome = nome,
         login = CPF,
+        senha = senha!!,
         CPF = CPF,
         email = email,
         fone = fone,
