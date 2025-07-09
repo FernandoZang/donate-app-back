@@ -118,3 +118,5 @@ VALUES ('1', 'SYSTEM', '111.111.111-11', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFti
 ('5', 'teste2', '447.634.330-91', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '447.634.330-91', 'teste@hotmail.com', '(45)998392481', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
 ('12', 'teste6', '540.369.560-51', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '540.369.560-51', 'test@hotmail.com', '(45)998392411', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1'),
 ('13', 'teste7', '766.944.970-59', '$2a$10$4a6gh/Y6S4t.N7S8a.gCZ.IELIdLFtiLa/U0GL9IsnaaY8TvtbZ3S', '766.944.970-59', 'test@hotmail.com', '(45)998392411', 'PR', 'Centro', 'Rua nereu Ramos', 'Rua', 'NOT', 'NOT', 'ATIVO', 'TRUE', '1');
+
+INSERT INTO USUARIO_REGRA_ACESSO (USUARIO_ID,REGRA_ID) VALUES(1,1);

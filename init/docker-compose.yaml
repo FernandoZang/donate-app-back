@@ -1,27 +1,12 @@
 version: '3.8'
+name: sanem
 
 services:
-  mysql:
-    image: mysql:8.0
-    network_mode: bridge
-    container_name: mysql-db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword123
-      MYSQL_DATABASE: SANEM
-      MYSQL_USER: donation-app
-      MYSQL_PASSWORD: donation123*
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - mysql_data:/var/lib/mysql
-    restart: unless-stopped
-
   db:
     image: postgres
-    restart: always
+    restart: no
     # set shared memory limit when using docker compose
-    shm_size: 128mb
+    shm_size: 512mb
     # or set shared memory limit when deploy via swarm stack
     #volumes:
     #  - type: tmpfs
@@ -34,7 +19,12 @@ services:
       POSTGRES_DB: sanem
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - mysql_data:/var/lib/mysql
+      - psg_sanem:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
     ports:
       - "5432:5432"
 
@@ -45,7 +35,7 @@ services:
       - "8010:9010"
 
 volumes:
-  mysql_data:
+  psg_sanem:
 
 networks:
   default:
